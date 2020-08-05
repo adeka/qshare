@@ -1,0 +1,9 @@
+*.iml
+node_modules
+.DS_Store
+yarn-error.log
+/dist
+package-lock.json
+.venv
+.vscode
+.env
