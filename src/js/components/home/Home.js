@@ -14,9 +14,9 @@ import "./home.scss";
 import { SearchRequest } from "Client/apiClient";
 
 const Home = props => {
-  // useEffect(() => {
-  //   search("");
-  // }, []);
+  useEffect(() => {
+    search("");
+  }, []);
 
   const [searchResults, updateSearchResults] = useRecoilState(
     searchResultsState
