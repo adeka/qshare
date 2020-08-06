@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import { useRecoilValue, useRecoilState } from "recoil";
-import { currentCountState } from "JS/selectors";
-import { searchResultsState } from "JS/atoms";
+import { searchResultsState, videoPlayerState } from "JS/atoms";
+import YouTube from "react-youtube";
 
 import SearchResults from "Components/searchResults/SearchResults";
-import { Layout, Input } from "antd";
+import { Layout, Input, Row, Col } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
 
@@ -13,9 +14,15 @@ import "./home.scss";
 import { SearchRequest } from "Client/apiClient";
 
 const Home = props => {
+  // useEffect(() => {
+  //   search("");
+  // }, []);
+
   const [searchResults, updateSearchResults] = useRecoilState(
     searchResultsState
   );
+
+  const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
 
   const search = async query => {
     try {
@@ -28,15 +35,24 @@ const Home = props => {
 
   return (
     <div className="home">
-      <Content style={{ padding: "0 50px" }}>
-        <div className="site-layout-content">
-          <Search
-            placeholder="Search"
-            onSearch={value => search(value)}
-            style={{ width: 200 }}
-          />
-          <SearchResults />
-        </div>
+      <Content>
+        <Row gutter={[8, 8]}>
+          <Col span={6}>
+            <Search placeholder="Search" onSearch={value => search(value)} />
+            <SearchResults />
+          </Col>
+          <Col span={12}>
+            <YouTube
+              className="player"
+              // videoId={null}
+              opts={{}}
+              onReady={e => {
+                updateVideoPlayer(e.target);
+              }}
+            />
+          </Col>
+          <Col span={6} />
+        </Row>
       </Content>
     </div>
   );

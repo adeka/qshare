@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { searchResultsState } from "JS/atoms";
+import { searchResultsState, videoPlayerState } from "JS/atoms";
 
 import { Layout, Input, Card } from "antd";
 const { Content } = Layout;
@@ -24,21 +24,31 @@ import "./searchResults.scss";
 // thumbnails: {default: {…}, medium: {…}, high: {…}}
 // title: "Gorillaz - PAC-MAN ft. ScHoolboy Q (Episode Five)"
 
+const VideoResult = ({ result }) => {
+  const player = useRecoilValue(videoPlayerState);
+
+  return (
+    <Card
+      onClick={() => {
+        player.loadVideoById({ videoId: result.id.videoId });
+        // player.pauseVideo();
+      }}
+      style={{ background: `url(${result.snippet.thumbnails.medium.url}` }}
+      className="videoResult"
+    >
+      {/* <img src={result.snippet.thumbnails.default.url} /> */}
+      {result.snippet.title.replace("&#39;", "'").replace("&amp;", "&")}
+    </Card>
+  );
+};
 const SearchResults = props => {
   const results = useRecoilValue(searchResultsState);
   console.log(results);
   return (
     <div className="searchResults">
-      <div>results {results.length}</div>
-
-      {results.map(result => {
-        return (
-          <Card key={result.id.videoId}>
-            <img src={result.snippet.thumbnails.default.url} />
-            {result.snippet.title}
-          </Card>
-        );
-      })}
+      {results.map(result => (
+        <VideoResult result={result} key={result.id.videoId} />
+      ))}
     </div>
   );
 };
