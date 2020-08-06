@@ -24,7 +24,7 @@ import "./searchResults.scss";
 // thumbnails: {default: {…}, medium: {…}, high: {…}}
 // title: "Gorillaz - PAC-MAN ft. ScHoolboy Q (Episode Five)"
 
-const VideoResult = ({ result }) => {
+export const VideoResult = ({ result }) => {
   const player = useRecoilValue(videoPlayerState);
 
   return (

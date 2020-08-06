@@ -5,6 +5,7 @@ import { searchResultsState, videoPlayerState } from "JS/atoms";
 import YouTube from "react-youtube";
 
 import SearchResults from "Components/searchResults/SearchResults";
+import Playlist from "Components/playlist/Playlist";
 import { Layout, Input, Row, Col } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
@@ -51,7 +52,9 @@ const Home = props => {
               }}
             />
           </Col>
-          <Col span={6} />
+          <Col span={6}>
+            <Playlist />
+          </Col>
         </Row>
       </Content>
     </div>
