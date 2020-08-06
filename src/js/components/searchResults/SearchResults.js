@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { searchResultsState, videoPlayerState } from "JS/atoms";
+import { playlistLengthSelector } from "JS/selectors";
+
+import firestore from "Client/firestore";
 
 import { Layout, Input, Card } from "antd";
 const { Content } = Layout;
@@ -8,36 +11,36 @@ const { Search } = Input;
 
 import "./searchResults.scss";
 
-// etag: "1TZSlkO8k78zfuL1g-y-qvojh18"
-// id:
-// kind: "youtube#video"
-// videoId: "G-7U-FDql1A"
-// __proto__: Object
-// kind: "youtube#searchResult"
-// snippet:
-// channelId: "UCfIXdjDQH9Fau7y99_Orpjw"
-// channelTitle: "Gorillaz"
-// description: "Gorillaz present Song Machine | Season One Episode Five: PAC-MAN ft. ScHoolboy Q Follow your nearest Song Machine: https://gorill.az/songmachine Hit ..."
-// liveBroadcastContent: "none"
-// publishTime: "2020-07-20T18:30:10Z"
-// publishedAt: "2020-07-20T18:30:10Z"
-// thumbnails: {default: {…}, medium: {…}, high: {…}}
-// title: "Gorillaz - PAC-MAN ft. ScHoolboy Q (Episode Five)"
+const enqueueVideo = async (videoId, thumbnailUrl, title, index) => {
+  await firestore
+    .collection("rooms")
+    .doc("wRDLEoQHH8VkmZFYBcBi")
+    .collection("videos")
+    .doc(videoId)
+    .set({
+      index,
+      thumbnailUrl,
+      title
+    });
+};
 
-export const VideoResult = ({ result }) => {
+export const VideoResult = ({ videoId, thumbnailUrl, title }) => {
   const player = useRecoilValue(videoPlayerState);
+  const index = useRecoilValue(playlistLengthSelector);
 
   return (
     <Card
       onClick={() => {
-        player.loadVideoById({ videoId: result.id.videoId });
-        // player.pauseVideo();
+        // player.loadVideoById({ videoId });
+        enqueueVideo(videoId, thumbnailUrl, title, index);
       }}
-      style={{ background: `url(${result.snippet.thumbnails.medium.url}` }}
+      style={{ background: `url(${thumbnailUrl}` }}
       className="videoResult"
     >
-      {/* <img src={result.snippet.thumbnails.default.url} /> */}
-      {result.snippet.title.replace("&#39;", "'").replace("&amp;", "&")}
+      {title
+        .replace("&#39;", "'")
+        .replace("&amp;", "&")
+        .replace("&quot;", '"')}
     </Card>
   );
 };
@@ -47,7 +50,12 @@ const SearchResults = props => {
   return (
     <div className="searchResults">
       {results.map(result => (
-        <VideoResult result={result} key={result.id.videoId} />
+        <VideoResult
+          videoId={result.id.videoId}
+          thumbnailUrl={result.snippet.thumbnails.medium.url}
+          title={result.snippet.title}
+          key={result.id.videoId}
+        />
       ))}
     </div>
   );

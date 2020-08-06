@@ -7,7 +7,7 @@
           "ie": "11"
         },
         "useBuiltIns": "usage",
-        "corejs": "2.0.0"
+        "corejs": "3"
       }
     ],
     "@babel/preset-react"

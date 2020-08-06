@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { searchResultsState, videoPlayerState } from "JS/atoms";
+import { playlistState } from "JS/atoms";
+import { playlistSelector } from "JS/selectors";
 
 import { Layout, Input, Card } from "antd";
 import { VideoResult } from "Components/searchResults/SearchResults";
@@ -8,11 +9,16 @@ import { VideoResult } from "Components/searchResults/SearchResults";
 import "./playlist.scss";
 
 const Playlist = props => {
-  const results = [];
+  const playlist = useRecoilValue(playlistSelector);
   return (
     <div className="playlist">
-      {results.map(result => (
-        <VideoResult result={result} key={result.id.videoId} />
+      {playlist.map(result => (
+        <VideoResult
+          videoId={result.videoId}
+          thumbnailUrl={result.thumbnailUrl}
+          title={result.title}
+          key={result.videoId}
+        />
       ))}
     </div>
   );
