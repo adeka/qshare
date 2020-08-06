@@ -6,6 +6,7 @@ import YouTube from "react-youtube";
 
 import SearchResults from "Components/searchResults/SearchResults";
 import Playlist from "Components/playlist/Playlist";
+import Chat from "Components/chat/Chat";
 import { Layout, Input, Row, Col } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
@@ -51,6 +52,7 @@ const Home = props => {
                 updateVideoPlayer(e.target);
               }}
             />
+            <Chat />
           </Col>
           <Col span={6}>
             <Playlist />
