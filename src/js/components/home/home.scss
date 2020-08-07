@@ -1,8 +1,30 @@
-.home {
-  padding: 1em;
-  background: #040c15;
+.roomResult {
+  border: none !important;
+  .ant-card-body {
+    padding: 1em;
+    color: black;
+    // text-shadow: 3px 3px 4px black;
+    // background: linear-gradient(
+    //   180deg,
+    //   rgba(0, 0, 0, 1) 0%,
+    //   rgba(0, 0, 0, 0) 100%
+    // );
+  }
+  background: linear-gradient(135deg, #fefcea 0%, #f1da36 100%) !important;
+  max-width: 200px;
+  //   background-origin: border-box;
+  min-height: 140px;
+  //   background-position: 0px 0px !important;
+  margin-top: 1em !important;
+  //   background-size: cover !important;
+  cursor: pointer;
+
+  transition: 0.15s all;
+  &:hover {
+    transform: scale(1.03);
+  }
 }
 
-.player {
-  width: 100%;
+.home {
+  padding: 1em;
 }

@@ -44,6 +44,7 @@ export const VideoResult = ({ videoId, thumbnailUrl, title }) => {
     </Card>
   );
 };
+
 const SearchResults = props => {
   const results = useRecoilValue(searchResultsState);
   console.log(results);

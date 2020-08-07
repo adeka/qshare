@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { roomState, playlistState } from "JS/atoms";
+import { roomState, playlistState, roomResultsState } from "JS/atoms";
 import firestore from "Client/firestore";
 
 export const currentRoomName = selector({
@@ -11,7 +11,7 @@ export const currentRoomName = selector({
 });
 
 export const playlistLengthSelector = selector({
-  key: "currentVideos",
+  key: "playlistLength",
   get: ({ get }) => {
     const playlist = get(playlistState);
     return playlist.length;
@@ -23,6 +23,14 @@ export const playlistSelector = selector({
   get: ({ get }) => {
     const playlist = get(playlistState);
     return playlist;
+  }
+});
+
+export const roomResultsSelector = selector({
+  key: "currentRooms",
+  get: ({ get }) => {
+    const rooms = get(roomResultsState);
+    return rooms;
   }
 });
 

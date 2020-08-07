@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import firestore from "Client/firestore";
+import { useHistory } from "react-router-dom";
 
 import { Layout, Menu } from "antd";
 const { Header } = Layout;
@@ -12,30 +12,8 @@ import { Logo } from "Icons";
 import "./header.scss";
 
 const QShareHeader = props => {
-  const [playlist, updatePlaylist] = useRecoilState(playlistState);
-
-  useEffect(() => {
-    const getVideos = async () => {
-      const videos = await firestore
-        .collection("rooms")
-        .doc("wRDLEoQHH8VkmZFYBcBi")
-        .collection("videos")
-        .orderBy("index")
-        .onSnapshot(snapshot => {
-          const playlist = [];
-          snapshot.forEach(doc => {
-            playlist.push({
-              ...doc.data(),
-              videoId: doc.id
-            });
-          });
-          updatePlaylist(playlist);
-        });
-    };
-    getVideos();
-  }, []);
-
   const roomName = useRecoilValue(currentRoomName);
+  const history = useHistory();
 
   return (
     <Header>
@@ -43,7 +21,14 @@ const QShareHeader = props => {
         <Menu.Item key="1">
           <div className="logo">{Logo}</div>
         </Menu.Item>
-        <Menu.Item key="2">{roomName}</Menu.Item>
+        <Menu.Item
+          key="2"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          Rooms
+        </Menu.Item>
       </Menu>
     </Header>
   );
