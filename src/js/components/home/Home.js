@@ -9,6 +9,7 @@ import { roomResultsSelector } from "JS/selectors";
 import { Layout, Input, Row, Col, Card } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
+import { Add } from "Icons";
 
 import "./home.scss";
 
@@ -24,6 +25,22 @@ const RoomResult = ({ roomId, name }) => {
       className="roomResult"
     >
       {name}
+    </Card>
+  );
+};
+
+const AddRoom = ({}) => {
+  const history = useHistory();
+
+  return (
+    <Card
+      onClick={() => {
+        // history.push(`/room/${roomId}`);
+      }}
+      className="addRoom"
+    >
+      Add Room
+      {Add}
     </Card>
   );
 };
@@ -51,6 +68,7 @@ const Home = props => {
   return (
     <div className="home">
       <Content>
+        <AddRoom />
         {rooms.map(room => (
           <RoomResult roomId={room.roomId} name={room.name} key={room.roomId} />
         ))}
