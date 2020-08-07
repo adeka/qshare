@@ -2,13 +2,27 @@
 }
 
 .header {
+  padding: 0 !important;
 }
 
 .logo {
   & svg {
-    fill: white;
+    fill: #3b9fff;
     position: relative;
     top: 10px;
+  }
+}
+
+.login {
+  float: right;
+  & svg {
+    margin-left: 0.5em;
+    fill: #3b9fff;
+    position: relative;
+    top: 10px;
+  }
+  .ant-avatar {
+    margin-left: 0.5em;
   }
 }
 

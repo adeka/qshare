@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import firestore from "Client/firestore";
+import { firestore } from "Client/firestore";
+
 import { useHistory } from "react-router-dom";
 
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -21,7 +22,6 @@ const RoomResult = ({ roomId, name }) => {
       onClick={() => {
         history.push(`/room/${roomId}`);
       }}
-      //   style={{ background: `url(${thumbnailUrl}` }}
       className="roomResult"
     >
       {name}
@@ -39,7 +39,7 @@ const AddRoom = ({}) => {
       }}
       className="addRoom"
     >
-      Add Room
+      New
       {Add}
     </Card>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import firestore from "Client/firestore";
+import { firestore } from "Client/firestore";
+
 import { useParams } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { searchResultsState, videoPlayerState, playlistState } from "JS/atoms";
@@ -61,7 +62,7 @@ const Room = props => {
         <Row gutter={[8, 8]}>
           <Col span={6}>
             <Search placeholder="Search" onSearch={value => search(value)} />
-            <SearchResults />
+            <SearchResults roomId={roomId} />
           </Col>
           <Col span={12}>
             <YouTube

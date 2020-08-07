@@ -1,5 +1,10 @@
 import { atom } from "recoil";
 
+export const userState = atom({
+  key: "user",
+  default: null
+});
+
 export const searchResultsState = atom({
   key: "searchResults",
   default: []
