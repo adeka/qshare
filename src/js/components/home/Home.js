@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { firestore } from "Client/firestore";
+import React, { useEffect, Suspense } from "react";
 
 import { useHistory } from "react-router-dom";
 
 import { useRecoilValue, useRecoilState } from "recoil";
 import { roomResultsState } from "JS/atoms";
 import { roomResultsSelector } from "JS/selectors";
+import { firestore } from "Client/firestore";
 
-import { Layout, Input, Row, Col, Card } from "antd";
+import { Layout, Input, Row, Col, Card, Spin } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
 import { Add } from "Icons";
@@ -45,6 +45,16 @@ const AddRoom = ({}) => {
   );
 };
 
+const Rooms = props => {
+  const rooms = useRecoilValue(roomResultsState);
+  return (
+    <div>
+      {rooms.map(room => (
+        <RoomResult roomId={room.roomId} name={room.name} key={room.roomId} />
+      ))}
+    </div>
+  );
+};
 const Home = props => {
   const [roomResults, updateRoomResults] = useRecoilState(roomResultsState);
 
@@ -64,14 +74,11 @@ const Home = props => {
     getRooms();
   }, []);
 
-  const rooms = useRecoilValue(roomResultsSelector);
   return (
     <div className="home">
       <Content>
         <AddRoom />
-        {rooms.map(room => (
-          <RoomResult roomId={room.roomId} name={room.name} key={room.roomId} />
-        ))}
+        <Rooms />
       </Content>
     </div>
   );

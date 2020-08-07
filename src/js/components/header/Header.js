@@ -13,14 +13,59 @@ import { currentRoomName, currentVideos } from "JS/selectors";
 import { Logo, User } from "Icons";
 import "./header.scss";
 
+const UserActions = (
+  <Menu>
+    <Menu.Item>Account</Menu.Item>
+    <Menu.Item
+      onClick={() => {
+        auth.signOut();
+      }}
+    >
+      Logout
+    </Menu.Item>
+  </Menu>
+);
+
+const UserMenuItem = props => {
+  const user = useRecoilValue(userState);
+
+  return (
+    user && (
+      <Menu.Item key="3" className="login">
+        <Dropdown overlay={UserActions}>
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            {user.name}
+          </a>
+        </Dropdown>
+        <Avatar src={user.photoUrl} />
+      </Menu.Item>
+    )
+  );
+};
+
+const SignInMenuItem = props => {
+  const user = useRecoilValue(userState);
+
+  return (
+    !user && (
+      <Menu.Item
+        key="3"
+        className="login"
+        onClick={() => {
+          auth.signInWithPopup(provider);
+        }}
+      >
+        Login {User}
+      </Menu.Item>
+    )
+  );
+};
 const AppHeader = props => {
   const [user, updateUser] = useRecoilState(userState);
-  const roomName = useRecoilValue(currentRoomName);
   const history = useHistory();
 
   useEffect(() => {
     auth.onAuthStateChanged(async userAuth => {
-      console.log(userAuth);
       const user = await createUser(userAuth);
       if (userAuth) {
         updateUser({
@@ -33,19 +78,6 @@ const AppHeader = props => {
       }
     });
   }, []);
-
-  const UserActions = (
-    <Menu>
-      <Menu.Item>Account</Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          auth.signOut();
-        }}
-      >
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
 
   return (
     <Header className="header">
@@ -61,30 +93,8 @@ const AppHeader = props => {
         >
           Rooms
         </Menu.Item>
-        {!user && (
-          <Menu.Item
-            key="3"
-            className="login"
-            onClick={() => {
-              auth.signInWithPopup(provider);
-            }}
-          >
-            Login {User}
-          </Menu.Item>
-        )}
-        {user && (
-          <Menu.Item key="3" className="login">
-            <Dropdown overlay={UserActions}>
-              <a
-                className="ant-dropdown-link"
-                onClick={e => e.preventDefault()}
-              >
-                {user.name}
-              </a>
-            </Dropdown>
-            <Avatar src={user.photoUrl} />
-          </Menu.Item>
-        )}
+        <SignInMenuItem />
+        <UserMenuItem />
       </Menu>
     </Header>
   );

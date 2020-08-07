@@ -5,6 +5,7 @@ import {
   roomResultsState,
   userState
 } from "JS/atoms";
+import { firestore } from "Client/firestore";
 
 export const userSelector = selector({
   key: "currentUser",
@@ -40,8 +41,25 @@ export const playlistSelector = selector({
 
 export const roomResultsSelector = selector({
   key: "currentRooms",
-  get: ({ get }) => {
-    const rooms = get(roomResultsState);
-    return rooms;
+  get: async () => {
+    // const rooms = await firestore.collection("rooms").get();
+
+    // const roomResults = [];
+    // rooms.forEach(doc => {
+    //   roomResults.push({
+    //     ...doc.data(),
+    //     roomId: doc.id
+    //   });
+    // });
+    // console.log(roomResults);
+
+    // return roomResults;
+
+    return [];
   }
+  // get: ({ get }) => {
+  //   const rooms = get(roomResultsState);
+  //   return rooms;
+  // }
+  // set: ({ set }, rooms) => set(roomResultsState, rooms)
 });
