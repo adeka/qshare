@@ -9,7 +9,7 @@ const { Search } = Input;
 import { roomState, playlistState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
 
-import "./chat.scss";
+import "Styles/chat.scss";
 
 const ChatHistory = () => {
   return <div className="chatHistory"></div>;

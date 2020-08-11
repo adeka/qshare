@@ -11,29 +11,17 @@ import {
   playlistState,
   lobbyState
 } from "JS/atoms";
-import YouTube from "react-youtube";
 
-import SearchResults from "Components/searchResults/SearchResults";
-import Playlist from "Components/playlist/Playlist";
-import Chat from "Components/chat/Chat";
-import Lobby from "Components/lobby/Lobby";
+import SearchResults from "Components/SearchResults";
+import Playlist from "Components/Playlist";
+import Chat from "Components/Chat";
+import Lobby from "Components/Lobby";
+import VideoPlayer from "Components/VideoPlayer";
+
 import { Layout, Input, Row, Col } from "antd";
 const { Content } = Layout;
 
-import "./room.scss";
-
-const VideoPlayer = props => {
-  const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
-  return (
-    <YouTube
-      className="player"
-      opts={{}}
-      onReady={e => {
-        updateVideoPlayer(e.target);
-      }}
-    />
-  );
-};
+import "Styles/room.scss";
 
 const Room = props => {
   const [playlist, updatePlaylist] = useRecoilState(playlistState);

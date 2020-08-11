@@ -29,7 +29,8 @@ module.exports = {
       JS: path.resolve(__dirname, "src/js/"),
       Client: path.resolve(__dirname, "src/js/client/"),
       Components: path.resolve(__dirname, "src/js/components/"),
-      Icons: path.resolve(__dirname, "src/icons/")
+      Icons: path.resolve(__dirname, "src/icons/"),
+      Styles: path.resolve(__dirname, "src/styles/")
     }
   },
   module: {

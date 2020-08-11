@@ -10,7 +10,7 @@ const { Search } = Input;
 import { roomState, lobbyState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
 
-import "./lobby.scss";
+import "Styles/lobby.scss";
 
 const isHost = (room, user) => {
   return user.userId == room.hostUserId;

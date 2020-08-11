@@ -12,9 +12,9 @@ import {
 
 import { Layout } from "antd";
 
-import Home from "Components/home/Home";
-import Room from "Components/room/Room";
-import Header from "Components/header/Header";
+import Home from "Components/Home";
+import Room from "Components/Room";
+import Header from "Components/Header";
 
 const App = props => {
   return (

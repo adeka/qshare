@@ -11,7 +11,7 @@ import { roomState, playlistState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
 
 import { Logo, User } from "Icons";
-import "./header.scss";
+import "Styles/header.scss";
 
 const UserActions = (
   <Menu>
