@@ -32,3 +32,10 @@
 .ant-menu-item-selected {
   background: none !important;
 }
+
+.roomName {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

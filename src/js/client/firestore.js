@@ -17,6 +17,7 @@ export const provider = new firebase.auth.GoogleAuthProvider();
 
 export const createUser = async user => {
   if (!user) return;
+
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
   if (!snapshot.exists) {
@@ -33,13 +34,35 @@ export const createUser = async user => {
   }
 };
 
-const getUserDocument = async uid => {
-  if (!uid) return null;
+export const tryAddUserToRoom = async (roomId, userId) => {
+  if (!roomId || !userId) return null;
+
+  const userRef = firestore.doc(`rooms/${roomId}/users/${userId}`);
+  const snapshot = userRef.get();
+  if (!snapshot.exists) {
+    try {
+      var date = new Date();
+      var timestamp = date.getTime();
+
+      await userRef.set({
+        timestamp
+      });
+    } catch (error) {
+      console.error("Error creating user document", error);
+    }
+  }
+};
+
+export const getUser = async userId => {
+  if (!userId) return null;
+
   try {
-    const userDocument = await firestore.doc(`users/${uid}`).get();
+    const userDocument = await firestore.doc(`users/${userId}`).get();
+    const userData = userDocument.data();
     return {
-      uid,
-      ...userDocument.data()
+      name: userData.displayName,
+      photoUrl: userData.photoURL,
+      userId: userId
     };
   } catch (error) {
     console.error("Error fetching user", error);

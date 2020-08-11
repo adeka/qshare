@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useRecoilValue } from "recoil";
-import { searchResultsState, videoPlayerState } from "JS/atoms";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { searchResultsState, videoPlayerState, playlistState } from "JS/atoms";
+
 import { playlistLengthSelector } from "JS/selectors";
 
 import { firestore } from "Client/firestore";
@@ -8,6 +9,8 @@ import { firestore } from "Client/firestore";
 import { Layout, Input, Card } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
+import { SearchRequest } from "Client/apiClient";
+import { stringFormat } from "JS/utils";
 
 import "./searchResults.scss";
 
@@ -25,7 +28,6 @@ const enqueueVideo = async (roomId, videoId, thumbnailUrl, title, index) => {
 };
 
 export const VideoResult = ({ roomId, videoId, thumbnailUrl, title }) => {
-  const player = useRecoilValue(videoPlayerState);
   const index = useRecoilValue(playlistLengthSelector);
 
   return (
@@ -37,19 +39,31 @@ export const VideoResult = ({ roomId, videoId, thumbnailUrl, title }) => {
       style={{ background: `url(${thumbnailUrl}` }}
       className="videoResult"
     >
-      {title
-        .replace("&#39;", "'")
-        .replace("&amp;", "&")
-        .replace("&quot;", '"')}
+      {stringFormat(title)}
     </Card>
   );
 };
 
 const SearchResults = ({ roomId }) => {
+  const [searchResults, updateSearchResults] = useRecoilState(
+    searchResultsState
+  );
+
   const results = useRecoilValue(searchResultsState);
+
+  const search = async query => {
+    try {
+      const { data } = await SearchRequest(query);
+      updateSearchResults(data.items);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="searchResults">
+      <Search placeholder="Search" onSearch={value => search(value)} />
+
       {results.map(result => (
         <VideoResult
           roomId={roomId}

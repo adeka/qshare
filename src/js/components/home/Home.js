@@ -3,8 +3,8 @@ import React, { useEffect, Suspense } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useRecoilValue, useRecoilState } from "recoil";
-import { roomResultsState } from "JS/atoms";
-import { roomResultsSelector } from "JS/selectors";
+import { roomResultsState, userState } from "JS/atoms";
+import { roomResultsSelector, userSelector } from "JS/selectors";
 import { firestore } from "Client/firestore";
 
 import { Layout, Input, Row, Col, Card, Spin } from "antd";
@@ -31,11 +31,15 @@ const RoomResult = ({ roomId, name }) => {
 
 const AddRoom = ({}) => {
   const history = useHistory();
-
+  const user = useRecoilValue(userState);
   return (
     <Card
-      onClick={() => {
-        // history.push(`/room/${roomId}`);
+      onClick={async () => {
+        const room = await firestore.collection("rooms").add({
+          name: `${user.name}'s room`,
+          hostUserId: user.userId
+        });
+        history.push(`/room/${room.id}`);
       }}
       className="addRoom"
     >
@@ -59,19 +63,16 @@ const Home = props => {
   const [roomResults, updateRoomResults] = useRecoilState(roomResultsState);
 
   useEffect(() => {
-    const getRooms = async () => {
-      const rooms = await firestore.collection("rooms").onSnapshot(snapshot => {
-        const roomResults = [];
-        snapshot.forEach(doc => {
-          roomResults.push({
-            ...doc.data(),
-            roomId: doc.id
-          });
+    firestore.collection("rooms").onSnapshot(snapshot => {
+      const roomResults = [];
+      snapshot.forEach(doc => {
+        roomResults.push({
+          ...doc.data(),
+          roomId: doc.id
         });
-        updateRoomResults(roomResults);
       });
-    };
-    getRooms();
+      updateRoomResults(roomResults);
+    });
   }, []);
 
   return (

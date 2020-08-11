@@ -31,14 +31,14 @@ const UserMenuItem = props => {
 
   return (
     user && (
-      <Menu.Item key="3" className="login">
+      <div key="3" className="login">
         <Dropdown overlay={UserActions}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
             {user.name}
           </a>
         </Dropdown>
         <Avatar src={user.photoUrl} />
-      </Menu.Item>
+      </div>
     )
   );
 };
@@ -59,6 +59,11 @@ const SignInMenuItem = props => {
       </Menu.Item>
     )
   );
+};
+
+const RoomName = props => {
+  const room = useRecoilValue(roomState);
+  return <div className="roomName">{room?.name}</div>;
 };
 const AppHeader = props => {
   const [user, updateUser] = useRecoilState(userState);
@@ -93,6 +98,7 @@ const AppHeader = props => {
         >
           Rooms
         </Menu.Item>
+        <RoomName />
         <SignInMenuItem />
         <UserMenuItem />
       </Menu>

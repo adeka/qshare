@@ -20,6 +20,11 @@ export const roomState = atom({
   default: null
 });
 
+export const lobbyState = atom({
+  key: "lobby",
+  default: []
+});
+
 export const roomResultsState = atom({
   key: "roomResults",
   default: []
