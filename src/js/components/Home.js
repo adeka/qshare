@@ -52,7 +52,8 @@ const AddRoom = ({}) => {
       onClick={async () => {
         const room = await firestore.collection("rooms").add({
           name: `${user.name}'s room`,
-          hostUserId: user.userId
+          hostUserId: user.userId,
+          currentVideoIndex: 0
         });
         history.push(`/room/${room.id}`);
       }}

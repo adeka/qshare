@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
+import { firestore, getUser, tryAddUserToRoom } from "Client/firestore";
 
-import { playlistState, videoPlayerState } from "JS/atoms";
+import { playlistState, videoPlayerState, roomState } from "JS/atoms";
 import { playlistSelector } from "JS/selectors";
 import YouTube from "react-youtube";
 
@@ -27,7 +28,9 @@ export const PlaylistResult = ({ roomId, videoId, thumbnailUrl, title }) => {
 const VideoPlayer = props => {
   const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
   const playlist = useRecoilValue(playlistState);
-  const currentVideo = [...playlist].reverse().pop();
+  const room = useRecoilValue(roomState);
+  //   const currentVideo = [...playlist].reverse().pop();
+  const currentVideo = playlist[room?.currentVideoIndex];
 
   if (videoPlayer && currentVideo) {
     videoPlayer.loadVideoById({
@@ -52,7 +55,10 @@ const VideoPlayer = props => {
       onStateChange={e => {
         const videoEnded = e.data == 0;
         if (videoEnded) {
-          console.log("over");
+          const nextVideoIndex = room.currentVideoIndex + 1;
+          firestore
+            .doc(`rooms/${room.roomId}`)
+            .update({ currentVideoIndex: nextVideoIndex });
         }
       }}
     />

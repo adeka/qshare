@@ -40,8 +40,12 @@ const Room = props => {
       const videosRef = await roomRef.collection("videos").orderBy("index");
       const usersRef = await roomRef.collection("users");
 
-      const roomData = await roomRef.get();
-      updateRoom(roomData.data());
+      roomRef.onSnapshot(snapshot => {
+        updateRoom({
+          ...snapshot.data(),
+          roomId: snapshot.id
+        });
+      });
 
       videosRef.onSnapshot(snapshot => {
         const videos = [];
