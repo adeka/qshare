@@ -48,7 +48,7 @@ export const tryAddUserToRoom = async (roomId, userId) => {
         timestamp
       });
     } catch (error) {
-      console.error("Error creating user document", error);
+      console.error("Error adding user to room", error);
     }
   }
 };

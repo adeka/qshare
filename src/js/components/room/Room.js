@@ -67,7 +67,6 @@ const Room = props => {
       });
 
       usersRef.onSnapshot(snapshot => {
-        console.log("snapped");
         const userIds = [];
 
         snapshot.forEach(doc => {
