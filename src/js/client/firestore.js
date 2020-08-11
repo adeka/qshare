@@ -68,3 +68,21 @@ export const getUser = async userId => {
     console.error("Error fetching user", error);
   }
 };
+
+export const incrementCurrentVideoIndex = async (
+  room,
+  playlist,
+  currentVideo
+) => {
+  if (!room || !playlist || !currentVideo) return null;
+
+  try {
+    const nextVideoIndex = playlist[playlist.indexOf(currentVideo) + 1].index;
+
+    firestore
+      .doc(`rooms/${room.roomId}`)
+      .update({ currentVideoIndex: nextVideoIndex });
+  } catch (error) {
+    console.error("Error incrementing current video index", error);
+  }
+};

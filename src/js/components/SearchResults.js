@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { searchResultsState, videoPlayerState, playlistState } from "JS/atoms";
 
-import { playlistLengthSelector } from "JS/selectors";
-
 import { firestore } from "Client/firestore";
 
 import { Layout, Input, Card } from "antd";
@@ -28,12 +26,11 @@ const enqueueVideo = async (roomId, videoId, thumbnailUrl, title, index) => {
 };
 
 export const VideoResult = ({ roomId, videoId, thumbnailUrl, title }) => {
-  const index = useRecoilValue(playlistLengthSelector);
-
+  const playlist = useRecoilValue(playlistState);
+  const index = [...playlist].pop().index + 1;
   return (
     <Card
       onClick={() => {
-        // player.loadVideoById({ videoId });
         enqueueVideo(roomId, videoId, thumbnailUrl, title, index);
       }}
       style={{ background: `url(${thumbnailUrl}` }}

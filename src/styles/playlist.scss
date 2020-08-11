@@ -1,2 +1,43 @@
 .playlist {
 }
+
+.playlistVideo {
+  border: none !important;
+  .ant-card-body {
+    padding: 1em;
+    color: white;
+    text-shadow: 3px 3px 4px black;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  background-origin: border-box;
+  min-height: 140px;
+  background-position: 0px 0px !important;
+  margin-top: 1em !important;
+  background-size: cover !important;
+  cursor: pointer;
+
+  transition: 0.15s all;
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  svg {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+.selected {
+  border: 2px solid rgb(68, 186, 255) !important;
+}

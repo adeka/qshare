@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { firestore, getUser, tryAddUserToRoom } from "Client/firestore";
+import { firestore, incrementCurrentVideoIndex } from "Client/firestore";
 
-import { playlistState, videoPlayerState, roomState } from "JS/atoms";
+import {
+  playlistState,
+  videoPlayerState,
+  roomState,
+  userState
+} from "JS/atoms";
 import { playlistSelector } from "JS/selectors";
 import YouTube from "react-youtube";
 
@@ -29,8 +34,10 @@ const VideoPlayer = props => {
   const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
   const playlist = useRecoilValue(playlistState);
   const room = useRecoilValue(roomState);
-  //   const currentVideo = [...playlist].reverse().pop();
-  const currentVideo = playlist[room?.currentVideoIndex];
+  const user = useRecoilValue(userState);
+  const currentVideo = playlist.find(
+    video => video.index == room?.currentVideoIndex
+  );
 
   if (videoPlayer && currentVideo) {
     videoPlayer.loadVideoById({
@@ -42,11 +49,9 @@ const VideoPlayer = props => {
   return (
     <YouTube
       className="player"
-      // videoId={nextVideo?.videoId}
       opts={{
         playerVars: {
           // https://developers.google.com/youtube/player_parameters
-          // autoplay: 1
         }
       }}
       onReady={e => {
@@ -54,11 +59,8 @@ const VideoPlayer = props => {
       }}
       onStateChange={e => {
         const videoEnded = e.data == 0;
-        if (videoEnded) {
-          const nextVideoIndex = room.currentVideoIndex + 1;
-          firestore
-            .doc(`rooms/${room.roomId}`)
-            .update({ currentVideoIndex: nextVideoIndex });
+        if (videoEnded && isHost(user, room)) {
+          incrementCurrentVideoIndex(room, playlist, currentVideo);
         }
       }}
     />

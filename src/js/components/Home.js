@@ -24,7 +24,6 @@ const RoomResult = ({ roomId, name, hostUserId }) => {
       onClick={e => {
         history.push(`/room/${roomId}`);
       }}
-      className="roomResult"
     >
       {name}
       {user && isHost(user, { hostUserId }) && (
