@@ -4,3 +4,7 @@ export const stringFormat = str => {
     .replace("&amp;", "&")
     .replace("&quot;", '"');
 };
+
+export const isHost = (user, room) => {
+  return user.userId == room.hostUserId;
+};

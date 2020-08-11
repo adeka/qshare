@@ -25,6 +25,19 @@
   &:hover {
     transform: scale(1.03);
   }
+
+  svg {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    fill: #040c15 !important;
+    transition: 0.2s all;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .addRoom {

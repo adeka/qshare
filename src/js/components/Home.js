@@ -10,21 +10,36 @@ import { firestore } from "Client/firestore";
 import { Layout, Input, Row, Col, Card, Spin } from "antd";
 const { Content } = Layout;
 const { Search } = Input;
-import { Add } from "Icons";
+import { Add, Delete } from "Icons";
+import { isHost } from "JS/utils";
 
 import "Styles/home.scss";
 
-const RoomResult = ({ roomId, name }) => {
+const RoomResult = ({ roomId, name, hostUserId }) => {
   const history = useHistory();
+  const user = useRecoilValue(userState);
 
   return (
     <Card
-      onClick={() => {
+      onClick={e => {
         history.push(`/room/${roomId}`);
       }}
       className="roomResult"
     >
       {name}
+      {user && isHost(user, { hostUserId }) && (
+        <div
+          onClick={e => {
+            e.stopPropagation();
+            firestore
+              .collection("rooms")
+              .doc(roomId)
+              .delete();
+          }}
+        >
+          {Delete}
+        </div>
+      )}
     </Card>
   );
 };
@@ -54,7 +69,12 @@ const Rooms = props => {
   return (
     <div>
       {rooms.map(room => (
-        <RoomResult roomId={room.roomId} name={room.name} key={room.roomId} />
+        <RoomResult
+          roomId={room.roomId}
+          name={room.name}
+          key={room.roomId}
+          hostUserId={room.hostUserId}
+        />
       ))}
     </div>
   );

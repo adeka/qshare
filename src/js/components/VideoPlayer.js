@@ -6,7 +6,8 @@ import { playlistSelector } from "JS/selectors";
 import YouTube from "react-youtube";
 
 import { Layout, Input, Card } from "antd";
-import { stringFormat } from "JS/utils";
+import { stringFormat, isHost } from "JS/utils";
+
 import "Styles/playlist.scss";
 
 export const PlaylistResult = ({ roomId, videoId, thumbnailUrl, title }) => {
@@ -26,12 +27,12 @@ export const PlaylistResult = ({ roomId, videoId, thumbnailUrl, title }) => {
 const VideoPlayer = props => {
   const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
   const playlist = useRecoilValue(playlistState);
-  const nextVideo = [...playlist].reverse().pop();
+  const currentVideo = [...playlist].reverse().pop();
 
-  if (videoPlayer && nextVideo) {
+  if (videoPlayer && currentVideo) {
     videoPlayer.loadVideoById({
-      videoId: nextVideo.videoId,
-      startSeconds: 10
+      videoId: currentVideo.videoId,
+      startSeconds: 0
     });
   }
 
@@ -47,6 +48,12 @@ const VideoPlayer = props => {
       }}
       onReady={e => {
         updateVideoPlayer(e.target);
+      }}
+      onStateChange={e => {
+        const videoEnded = e.data == 0;
+        if (videoEnded) {
+          console.log("over");
+        }
       }}
     />
   );
