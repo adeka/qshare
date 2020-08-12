@@ -19,33 +19,10 @@ export const cleanString = input => {
   return output;
 };
 
-export const timeConverter = UNIX_timestamp => {
-  const a = new Date(UNIX_timestamp * 1000);
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
-  const year = a.getFullYear();
-  const month = months[a.getMonth()];
-  const date = a.getDate();
-  const hour = a.getHours();
-  const min = a.getMinutes();
-  const sec = a.getSeconds();
-  // const time =
-  //   date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
-
-  const time = hour + ":" + min;
-  return time;
+export const timeConverter = timestamp => {
+  const dateTime = new Date(timestamp);
+  const options = {hour12 : false, hour: '2-digit', minute: '2-digit'};
+  return dateTime.toLocaleTimeString('en-US', options);
 };
 
 export const isUrl = url => {
