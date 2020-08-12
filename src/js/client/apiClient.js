@@ -12,7 +12,7 @@ export const SearchRequest = query => {
   return api.get(endpoints.search, {
     params: {
       q: query,
-      maxResults: 3,
+      maxResults: 6,
       type: "video",
       key: process.env.youtube_api_key
     }

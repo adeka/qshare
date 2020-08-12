@@ -96,18 +96,12 @@ const Room = props => {
       <Content>
         <Row gutter={[8, 8]}>
           <Col span={6}>
+            <Lobby />
             <SearchResults roomId={roomId} />
           </Col>
           <Col span={12}>
             <VideoPlayer />
-            <Row gutter={[8, 8]}>
-              <Col span={8}>
-                <Lobby />
-              </Col>
-              <Col span={16}>
-                <Chat />
-              </Col>
-            </Row>
+            <Chat />
           </Col>
           <Col span={6}>
             <Playlist />

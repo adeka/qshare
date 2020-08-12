@@ -2,6 +2,9 @@
 
 @import "./variables.scss";
 
+body {
+  background: #000000;
+}
 .app {
   * {
     font-family: "Open Sans", sans-serif;
@@ -12,6 +15,8 @@
   right: 0;
   bottom: 0;
   background: #000000;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .ant-input-search,

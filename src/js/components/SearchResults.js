@@ -59,7 +59,10 @@ const SearchResults = ({ roomId }) => {
 
   return (
     <div className="searchResults">
-      <Search placeholder="Search" onSearch={value => search(value)} />
+      <Search
+        placeholder="Search Videos..."
+        onSearch={value => search(value)}
+      />
 
       {results.map(result => (
         <VideoResult
