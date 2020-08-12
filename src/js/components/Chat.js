@@ -9,12 +9,13 @@ const { Search } = Input;
 import { roomState, lobbyState, chatState, userState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
 import { cleanString, timeConverter, isUrl } from "JS/utils";
+
 import "Styles/chat.scss";
 
 const formatMessage = message => {
   let formattedMessage = message;
   if (isUrl(message)) {
-    formattedMessage = (
+    const formattedMessage = (
       <a href={message} target="_blank">
         {message}
       </a>

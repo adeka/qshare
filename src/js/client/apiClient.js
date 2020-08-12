@@ -18,3 +18,18 @@ export const SearchRequest = query => {
     }
   });
 };
+
+// cors not supported on localhost
+// would probably work in prod/staging
+// check out this potential solution for local development using a proxy:
+// https://stackoverflow.com/a/61373026
+export const Unfurl = async url => {
+  try {
+    const data = await axios.get(url);
+    console.log(data);
+    // parse metadata out of the result to construct
+    // an object to display an unfurl component
+  } catch {
+    console.log("invalid url");
+  }
+};
