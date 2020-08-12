@@ -1,4 +1,9 @@
+@import "./variables.scss";
+
 .playlist {
+  span {
+    color: $light;
+  }
 }
 
 .playlistVideo {
@@ -17,7 +22,9 @@
   background-origin: border-box;
   min-height: 140px;
   background-position: 0px 0px !important;
-  margin-top: 1em !important;
+  &:not(:first-child) {
+    margin-top: 1em !important;
+  }
   background-size: cover !important;
   cursor: pointer;
 

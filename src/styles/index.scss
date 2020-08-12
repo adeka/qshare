@@ -1,4 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,800&display=swap");
+
+@import "./variables.scss";
+
 .app {
+  * {
+    font-family: "Open Sans", sans-serif;
+  }
   position: absolute;
   top: 0;
   left: 0;
@@ -9,8 +16,8 @@
 
 .ant-input-search,
 .ant-input {
-  $text: #1b5194;
-  $border: #1b3049;
+  $text: $light;
+  $border: #102033;
 
   color: $text;
   background: rgb(0, 0, 0) !important;
