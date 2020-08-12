@@ -39,3 +39,8 @@ export const activeVideoState = atom({
   key: "activeVideo",
   default: {}
 });
+
+export const chatState = atom({
+  key: "chat",
+  default: []
+});

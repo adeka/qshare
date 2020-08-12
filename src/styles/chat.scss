@@ -3,4 +3,24 @@
 
   width: 100%;
   height: 300px;
+
+  overflow-y: scroll;
+  padding-bottom: 1em;
+
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.message {
+  height: 35px;
+  padding: 1em;
+  color: white;
+}
+
+.messageHeader {
+  color: rgb(170, 170, 170);
+  margin-right: 0.5em;
+}
+
+.messageBody {
 }

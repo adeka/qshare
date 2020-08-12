@@ -61,7 +61,6 @@ const VideoPlayer = props => {
       currentVideo &&
       activeVideo?.videoId !== currentVideo.videoId
     ) {
-      console.log(currentVideo);
       updateActiveVideo({
         videoId: currentVideo.videoId,
         index: currentVideo.index

@@ -41,8 +41,8 @@ export const tryAddUserToRoom = async (roomId, userId) => {
   const snapshot = userRef.get();
   if (!snapshot.exists) {
     try {
-      var date = new Date();
-      var timestamp = date.getTime();
+      const date = new Date();
+      const timestamp = date.getTime();
 
       await userRef.set({
         timestamp

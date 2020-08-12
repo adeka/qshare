@@ -9,7 +9,8 @@ import {
   searchResultsState,
   videoPlayerState,
   playlistState,
-  lobbyState
+  lobbyState,
+  chatState
 } from "JS/atoms";
 
 import SearchResults from "Components/SearchResults";
@@ -27,6 +28,7 @@ const Room = props => {
   const [playlist, updatePlaylist] = useRecoilState(playlistState);
   const [room, updateRoom] = useRecoilState(roomState);
   const [lobby, updateLobby] = useRecoilState(lobbyState);
+  const [chat, updateChat] = useRecoilState(chatState);
 
   const { roomId } = useParams();
   const user = useRecoilValue(userState);
@@ -38,6 +40,7 @@ const Room = props => {
     const setupRoom = async () => {
       const roomRef = await firestore.collection("rooms").doc(roomId);
       const videosRef = await roomRef.collection("videos").orderBy("index");
+      const chatRef = await roomRef.collection("chat").orderBy("timestamp");
       const usersRef = await roomRef.collection("users");
 
       roomRef.onSnapshot(snapshot => {
@@ -45,6 +48,17 @@ const Room = props => {
           ...snapshot.data(),
           roomId: snapshot.id
         });
+      });
+
+      chatRef.onSnapshot(snapshot => {
+        const chat = [];
+        snapshot.forEach(doc => {
+          chat.push({
+            ...doc.data(),
+            chatId: doc.id
+          });
+        });
+        updateChat(chat);
       });
 
       videosRef.onSnapshot(snapshot => {
