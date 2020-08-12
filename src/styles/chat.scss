@@ -1,4 +1,5 @@
 .chatHistory {
+  padding: 1em;
   background: #0e151d;
 
   width: 100%;
@@ -9,21 +10,50 @@
 
   display: flex;
   flex-direction: column-reverse;
+
+  &::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+  &::-webkit-scrollbar-track {
+    background: black; /* color of the tracking area */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(24, 44, 78); /* color of the scroll thumb */
+    border-radius: 15px; /* roundness of the scroll thumb */
+    border: none;
+  }
+}
+
+.messageWrapper {
+  position: relative;
 }
 
 .message {
-  padding: 1em;
-  padding-bottom: 0;
-  color: white;
+  padding: 0;
+  color: rgb(214, 214, 214);
 
   width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;
+  padding-left: 3em;
 }
 
 .messageHeader {
-  color: rgb(170, 170, 170);
+  margin-top: 1em;
+  color: white;
+  font-weight: bolder;
 }
 
-.messageBody {
+.messageTimestamp {
+  color: rgb(145, 145, 145);
+  font-weight: normal;
+  margin-left: 0.5em;
+}
+
+.messageAvatar {
+  position: absolute;
+  top: 1.25em;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px; /* roundness of the scroll thumb */
 }
