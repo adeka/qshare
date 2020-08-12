@@ -15,7 +15,7 @@ import "Styles/chat.scss";
 const formatMessage = message => {
   let formattedMessage = message;
   if (isUrl(message)) {
-    const formattedMessage = (
+    formattedMessage = (
       <a href={message} target="_blank">
         {message}
       </a>
