@@ -6,3 +6,24 @@
   bottom: 0;
   background: #000000;
 }
+
+.ant-input-search,
+.ant-input {
+  $text: #1b5194;
+  $border: #1b3049;
+
+  color: $text;
+  background: rgb(0, 0, 0) !important;
+  border-color: $border;
+
+  &::placeholder {
+    color: $border;
+  }
+  * {
+    fill: $text;
+    background: rgb(0, 0, 0) !important;
+  }
+  .anticon-search:before {
+    border-color: $border;
+  }
+}
