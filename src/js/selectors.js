@@ -38,28 +38,3 @@ export const playlistSelector = selector({
     return playlist;
   }
 });
-
-export const roomResultsSelector = selector({
-  key: "currentRooms",
-  get: async () => {
-    // const rooms = await firestore.collection("rooms").get();
-
-    // const roomResults = [];
-    // rooms.forEach(doc => {
-    //   roomResults.push({
-    //     ...doc.data(),
-    //     roomId: doc.id
-    //   });
-    // });
-    // console.log(roomResults);
-
-    // return roomResults;
-
-    return [];
-  }
-  // get: ({ get }) => {
-  //   const rooms = get(roomResultsState);
-  //   return rooms;
-  // }
-  // set: ({ set }, rooms) => set(roomResultsState, rooms)
-});

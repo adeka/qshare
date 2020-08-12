@@ -27,7 +27,7 @@ const enqueueVideo = async (roomId, videoId, thumbnailUrl, title, index) => {
 
 export const VideoResult = ({ roomId, videoId, thumbnailUrl, title }) => {
   const playlist = useRecoilValue(playlistState);
-  const index = [...playlist].pop().index + 1;
+  const index = playlist.length > 0 ? [...playlist].pop().index + 1 : 0;
   return (
     <Card
       onClick={() => {

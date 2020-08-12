@@ -36,7 +36,7 @@ export const PlaylistResult = ({
           e.stopPropagation();
 
           if (isCurrentVideo) {
-            incrementCurrentVideoIndex(room, playlist, video);
+            incrementCurrentVideoIndex(room, playlist, video, true);
           }
 
           firestore

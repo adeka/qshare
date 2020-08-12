@@ -18,7 +18,7 @@ const User = ({ user, room }) => {
     user && (
       <div className="user">
         <Avatar src={user.photoUrl} />
-        {user.name} {isHost(room, user) && Host}
+        {user.name} {isHost(user, room) && Host}
       </div>
     )
   );
@@ -28,14 +28,15 @@ const Lobby = props => {
   useEffect(() => {}, []);
   const lobby = useRecoilValue(lobbyState);
   const room = useRecoilValue(roomState);
-
+  console.log(lobby);
+  console.log(room);
   // spread lobby into new array because calling sort will throw an error
   // if we call it on the lobby array reference (its frozen by recoil)
   // if only JS had a way to pass by value :kappa:
   return (
     <Content className="lobby">
       {[...lobby]
-        .sort((a, b) => (!isHost(room, a) ? 1 : -1))
+        .sort(user => (!isHost(user, room) ? 1 : -1))
         .map(user => (
           <User user={user} room={room} key={user.userId} />
         ))}

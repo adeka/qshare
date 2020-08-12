@@ -6,5 +6,5 @@ export const stringFormat = str => {
 };
 
 export const isHost = (user, room) => {
-  return user.userId == room.hostUserId;
+  return user && room && user.userId == room.hostUserId;
 };

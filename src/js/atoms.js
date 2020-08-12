@@ -34,3 +34,8 @@ export const playlistState = atom({
   key: "playlist",
   default: []
 });
+
+export const activeVideoState = atom({
+  key: "activeVideo",
+  default: {}
+});

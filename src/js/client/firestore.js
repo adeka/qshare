@@ -72,12 +72,15 @@ export const getUser = async userId => {
 export const incrementCurrentVideoIndex = async (
   room,
   playlist,
-  currentVideo
+  currentVideo,
+  decrementIfLastVideo = false
 ) => {
   if (!room || !playlist || !currentVideo) return null;
-
+  const isLastVideo = [...playlist].pop() === currentVideo;
+  const direction = isLastVideo ? (decrementIfLastVideo ? -1 : 0) : 1;
   try {
-    const nextVideoIndex = playlist[playlist.indexOf(currentVideo) + 1].index;
+    const nextVideo = playlist[playlist.indexOf(currentVideo) + direction];
+    const nextVideoIndex = nextVideo?.index || 0;
 
     firestore
       .doc(`rooms/${room.roomId}`)
