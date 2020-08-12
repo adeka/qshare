@@ -8,7 +8,7 @@ const { Search } = Input;
 
 import { roomState, lobbyState, chatState, userState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
-
+import { cleanString } from "JS/utils";
 import "Styles/chat.scss";
 
 const Message = ({ message, userId }) => {
@@ -16,8 +16,8 @@ const Message = ({ message, userId }) => {
   const user = lobby.find(user => user.userId == userId);
   return (
     <div className="message">
-      <span className="messageHeader">{user?.name}:</span>
-      <span className="messageBody">{message}</span>
+      <div className="messageHeader">{user?.name}</div>
+      <div className="messageBody">{message}</div>
     </div>
   );
 };
@@ -46,10 +46,10 @@ const Chat = props => {
         value={currentMessage}
         onChange={e => updateCurrentMessage(e.target.value)}
         onPressEnter={e => {
-          const message = e.target.value;
+          const message = cleanString(e.target.value);
           const date = new Date();
 
-          if (message) {
+          if (message && message.length <= 256) {
             firestore
               .collection("rooms")
               .doc(room.roomId)
