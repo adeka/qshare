@@ -8,9 +8,21 @@ const { Search } = Input;
 
 import { roomState, lobbyState, chatState, userState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
-import { cleanString, timeConverter } from "JS/utils";
+import { cleanString, timeConverter, isUrl } from "JS/utils";
 import "Styles/chat.scss";
 
+const formatMessage = message => {
+  let formattedMessage = message;
+  if (isUrl(message)) {
+    formattedMessage = (
+      <a href={message} target="_blank">
+        {message}
+      </a>
+    );
+  }
+
+  return formattedMessage;
+};
 const Message = ({ message, userId, timestamp, lastMessageUserId }) => {
   const lobby = useRecoilValue(lobbyState);
   const user = lobby.find(user => user.userId == userId);
@@ -26,7 +38,7 @@ const Message = ({ message, userId, timestamp, lastMessageUserId }) => {
             <span className="messageTimestamp">{parsedTimestamp}</span>
           </div>
         )}
-        <div className="messageBody">{message}</div>
+        <div className="messageBody">{formatMessage(message)}</div>
       </div>
     </div>
   );
