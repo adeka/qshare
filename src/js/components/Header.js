@@ -7,7 +7,7 @@ import { userState } from "JS/atoms";
 import { Layout, Menu, Avatar, Dropdown } from "antd";
 const { Header } = Layout;
 
-import { roomState, playlistState } from "JS/atoms";
+import { roomState, activeVideoState, videoPlayerState } from "JS/atoms";
 import { currentRoomName, currentVideos } from "JS/selectors";
 
 import { Logo, User } from "Icons";
@@ -66,6 +66,9 @@ const RoomName = props => {
   return <div className="roomName">{room?.name}</div>;
 };
 const AppHeader = props => {
+  const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
+  const [activeVideo, updateActiveVideo] = useRecoilState(activeVideoState);
+
   const [user, updateUser] = useRecoilState(userState);
   const history = useHistory();
 
@@ -93,6 +96,8 @@ const AppHeader = props => {
         <Menu.Item
           key="2"
           onClick={() => {
+            updateVideoPlayer(null);
+            updateActiveVideo(null);
             history.push("/");
           }}
         >

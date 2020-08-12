@@ -28,8 +28,7 @@ const Lobby = props => {
   useEffect(() => {}, []);
   const lobby = useRecoilValue(lobbyState);
   const room = useRecoilValue(roomState);
-  console.log(lobby);
-  console.log(room);
+
   // spread lobby into new array because calling sort will throw an error
   // if we call it on the lobby array reference (its frozen by recoil)
   // if only JS had a way to pass by value :kappa:

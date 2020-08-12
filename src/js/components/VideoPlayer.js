@@ -17,8 +17,10 @@ import { stringFormat, isHost } from "JS/utils";
 
 import "Styles/playlist.scss";
 
-const YoutubePlayer = ({ room, playlist, currentVideo, host }) => {
+const YoutubePlayer = ({ currentVideo, host }) => {
   const [videoPlayer, updateVideoPlayer] = useRecoilState(videoPlayerState);
+  const room = useRecoilValue(roomState);
+  const playlist = useRecoilValue(playlistState);
 
   return (
     <YouTube
@@ -57,8 +59,9 @@ const VideoPlayer = props => {
     if (
       videoPlayer &&
       currentVideo &&
-      activeVideo.videoId !== currentVideo.videoId
+      activeVideo?.videoId !== currentVideo.videoId
     ) {
+      console.log(currentVideo);
       updateActiveVideo({
         videoId: currentVideo.videoId,
         index: currentVideo.index
@@ -71,12 +74,7 @@ const VideoPlayer = props => {
   });
 
   return (
-    <YoutubePlayer
-      room={room}
-      playlist={playlist}
-      currentVideo={currentVideo}
-      host={isHost(user, room)}
-    />
+    <YoutubePlayer currentVideo={currentVideo} host={isHost(user, room)} />
   );
 };
 
