@@ -1,8 +1,8 @@
 export const stringFormat = str => {
   return str
-    .replace("&#39;", "'")
-    .replace("&amp;", "&")
-    .replace("&quot;", '"');
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"');
 };
 
 export const isHost = (user, room) => {
@@ -21,8 +21,8 @@ export const cleanString = input => {
 
 export const timeConverter = timestamp => {
   const dateTime = new Date(timestamp);
-  const options = {hour12 : false, hour: '2-digit', minute: '2-digit'};
-  return dateTime.toLocaleTimeString('en-US', options);
+  const options = { hour12: false, hour: "2-digit", minute: "2-digit" };
+  return dateTime.toLocaleTimeString("en-US", options);
 };
 
 export const isUrl = url => {

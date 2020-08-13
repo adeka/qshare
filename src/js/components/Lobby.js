@@ -18,7 +18,8 @@ const User = ({ user, room }) => {
     user && (
       <div className="user">
         <Avatar src={user.photoUrl} />
-        {user.name} {isHost(user, room) && Host}
+        {user.name}{" "}
+        {isHost(user, room) && <span className="host">Host</span> && Host}
       </div>
     )
   );

@@ -23,13 +23,14 @@ body {
 .ant-input {
   $text: $light;
   $border: #102033;
+  $placeholderText: rgb(179, 179, 179);
 
   color: $text;
   background: rgb(0, 0, 0) !important;
   border-color: $border;
 
   &::placeholder {
-    color: $border;
+    color: $placeholderText;
   }
   * {
     fill: $text;

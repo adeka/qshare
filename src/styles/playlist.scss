@@ -6,6 +6,16 @@
   }
 }
 
+.playlistHeader {
+  background: #0e151d;
+  color: #c4d4e9;
+  height: 57px;
+  padding: 1.3em;
+  margin-bottom: 1em;
+  span {
+    float: right;
+  }
+}
 .playlistVideo {
   border: none !important;
   .ant-card-body {
