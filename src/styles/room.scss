@@ -1,8 +1,12 @@
 .room {
-  padding: 1em;
-  background: #01070e;
+  height: 100%;
+  // background: #01070e;
 }
 
+.playerWrapper {
+  height: 50%;
+}
 .player {
   width: 100%;
+  height: 100%;
 }

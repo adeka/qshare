@@ -1,3 +1,10 @@
+.searchResultsWrapper {
+  height: 100%;
+}
+.searchResults {
+  height: 67%;
+  overflow-y: scroll;
+}
 .videoResult {
   border: none !important;
   .ant-card-body {
@@ -14,7 +21,6 @@
   background-origin: border-box;
   min-height: 140px;
   background-position: 0px 0px !important;
-  margin-top: 1em !important;
   background-size: cover !important;
   cursor: pointer;
 

@@ -3,7 +3,9 @@
 @import "./variables.scss";
 
 body {
+  height: 100%;
   background: #000000;
+  overflow: hidden;
 }
 .app {
   * {
@@ -15,10 +17,26 @@ body {
   right: 0;
   bottom: 0;
   background: #000000;
-  max-width: 1200px;
   margin: 0 auto;
 }
+.left {
+  float: left;
+}
+.middle {
+  float: left;
+}
+.right {
+  float: left;
 
+  height: 100%;
+  max-width: 100px;
+}
+.fullHeight {
+  height: 100%;
+}
+.fullHeightNoHeader {
+  height: calc(100% - 64px);
+}
 .ant-input-search,
 .ant-input {
   $text: $light;

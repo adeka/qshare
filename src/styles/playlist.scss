@@ -4,6 +4,8 @@
   span {
     color: $light;
   }
+  height: calc(100% - 72px);
+  overflow-y: scroll;
 }
 
 .playlistHeader {
@@ -11,7 +13,6 @@
   color: #c4d4e9;
   height: 57px;
   padding: 1.3em;
-  margin-bottom: 1em;
   span {
     float: right;
   }
@@ -38,11 +39,6 @@
   background-size: cover !important;
   cursor: pointer;
 
-  transition: 0.15s all;
-  &:hover {
-    transform: scale(1.03);
-  }
-
   svg {
     position: absolute;
     top: 10px;
@@ -55,6 +51,13 @@
     }
   }
 }
+
+.playlistVideoWrapper {
+  transition: 0.15s all;
+  &:hover {
+    transform: scale(0.95);
+  }
+}
 .selected {
-  border: 2px solid rgb(68, 186, 255) !important;
+  border: 1px solid rgb(68, 186, 255);
 }

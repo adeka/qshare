@@ -18,16 +18,16 @@ export const PlaylistResult = ({
   videoId,
   thumbnailUrl,
   title,
-  index
+  index,
+  isCurrentVideo
 }) => {
-  const isCurrentVideo = room.currentVideoIndex == video.index;
   return (
     <Card
       onClick={() => {
         firestore.doc(`rooms/${roomId}`).update({ currentVideoIndex: index });
       }}
       style={{ background: `url(${thumbnailUrl}` }}
-      className={classNames("playlistVideo", { selected: isCurrentVideo })}
+      className={"playlistVideo"}
     >
       {stringFormat(title)}
       <div className="index">{index}</div>
@@ -123,7 +123,6 @@ const Playlist = props => {
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
     // padding: 4,
-    marginBottom: "1em",
 
     // change background colour if dragging
     // background: isDragging ? "lightgreen" : "grey",
@@ -141,17 +140,14 @@ const Playlist = props => {
       <div className="playlistHeader">
         Playlist <span>{playlist.length} videos</span>
       </div>
-      <DragDropContext
-        onDragEnd={onDragEnd}
-        onDragUpdate={onDragUpdate}
-        className="playlist"
-      >
+      <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
+              className="playlist"
             >
               {playlist.map((result, index) => (
                 <Draggable
@@ -159,28 +155,37 @@ const Playlist = props => {
                   draggableId={result.videoId}
                   index={index}
                 >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <PlaylistResult
-                        playlist={playlist}
-                        room={room}
-                        video={result}
-                        index={result.index}
-                        roomId={room.roomId}
-                        videoId={result.videoId}
-                        thumbnailUrl={result.thumbnailUrl}
-                        title={result.title}
-                      />
-                    </div>
-                  )}
+                  {(provided, snapshot) => {
+                    const isCurrentVideo =
+                      room.currentVideoIndex == result.index;
+
+                    return (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
+                        )}
+                        className={classNames("playlistVideoWrapper", {
+                          selected: isCurrentVideo
+                        })}
+                      >
+                        <PlaylistResult
+                          playlist={playlist}
+                          room={room}
+                          video={result}
+                          index={result.index}
+                          roomId={room.roomId}
+                          videoId={result.videoId}
+                          thumbnailUrl={result.thumbnailUrl}
+                          title={result.title}
+                          isCurrentVideo={isCurrentVideo}
+                        />
+                      </div>
+                    );
+                  }}
                 </Draggable>
               ))}
               {provided.placeholder}

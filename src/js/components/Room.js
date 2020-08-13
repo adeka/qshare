@@ -92,23 +92,21 @@ const Room = props => {
   }, []);
 
   return (
-    <div className="room">
-      <Content>
-        <Row gutter={[8, 8]}>
-          <Col span={6}>
-            <Lobby />
-            <SearchResults roomId={roomId} />
-          </Col>
-          <Col span={12}>
-            <VideoPlayer />
-            <Chat />
-          </Col>
-          <Col span={6}>
-            <Playlist />
-          </Col>
-        </Row>
-      </Content>
-    </div>
+    <Content className="fullHeightNoHeader">
+      <Row className="room">
+        <Col span={5} className="fullHeight">
+          <Lobby />
+          <SearchResults roomId={roomId} />
+        </Col>
+        <Col span={14} className="fullHeight">
+          <VideoPlayer />
+          <Chat />
+        </Col>
+        <Col span={5} className="fullHeight">
+          <Playlist />
+        </Col>
+      </Row>
+    </Content>
   );
 };
 

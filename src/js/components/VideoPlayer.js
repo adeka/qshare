@@ -24,6 +24,7 @@ const YoutubePlayer = ({ currentVideo, host }) => {
 
   return (
     <YouTube
+      containerClassName="playerWrapper"
       className="player"
       opts={{
         playerVars: {

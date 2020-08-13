@@ -58,21 +58,22 @@ const SearchResults = ({ roomId }) => {
   };
 
   return (
-    <div className="searchResults">
+    <div className="searchResultsWrapper">
       <Search
         placeholder="Search Videos..."
         onSearch={value => search(value)}
       />
-
-      {results.map(result => (
-        <VideoResult
-          roomId={roomId}
-          videoId={result.id.videoId}
-          thumbnailUrl={result.snippet.thumbnails.medium.url}
-          title={result.snippet.title}
-          key={result.id.videoId}
-        />
-      ))}
+      <div className="searchResults">
+        {results.map(result => (
+          <VideoResult
+            roomId={roomId}
+            videoId={result.id.videoId}
+            thumbnailUrl={result.snippet.thumbnails.medium.url}
+            title={result.snippet.title}
+            key={result.id.videoId}
+          />
+        ))}
+      </div>
     </div>
   );
 };

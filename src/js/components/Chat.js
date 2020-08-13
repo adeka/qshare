@@ -72,7 +72,7 @@ const Chat = props => {
   const user = useRecoilValue(userState);
 
   return (
-    <Content>
+    <Content className="chatWrapper">
       <ChatHistory />
       <Input
         placeholder="Enter Message..."
