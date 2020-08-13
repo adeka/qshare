@@ -22,7 +22,7 @@ export const cleanString = input => {
 export const timeConverter = timestamp => {
   const dateTime = new Date(timestamp);
   const options = { hour12: false, hour: "2-digit", minute: "2-digit" };
-  return dateTime.toLocaleTimeString("en-US", options);
+  return dateTime.toLocaleTimeString("en-GB", options);
 };
 
 export const isUrl = url => {
