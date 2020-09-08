@@ -4,9 +4,19 @@
 }
 
 .playerWrapper {
+  // pointer-events: none !important;
+
   height: 50%;
+  * {
+    // pointer-events: none !important;
+  }
 }
 .player {
+  // pointer-events: none !important;
+
+  * {
+    // pointer-events: none !important;
+  }
   width: 100%;
   height: 100%;
 }

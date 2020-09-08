@@ -1,6 +1,19 @@
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const dotenv = require("dotenv");
+
+const env = dotenv.config({
+  path: "./.env"
+}).parsed;
+
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  return {
+    ...prev,
+    [next]: JSON.stringify(env[next])
+  };
+}, {});
 
 module.exports = {
   context: path.resolve(__dirname, "src"),
@@ -61,9 +74,31 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      favicon: "./assets/favicon.ico",
       template: "index.html"
     }),
-    new CleanWebpackPlugin(["dist"])
-  ]
+    new CleanWebpackPlugin(["dist"]),
+    new webpack.DefinePlugin({
+      "process.env": {
+        ...envKeys
+      }
+    })
+  ],
+  devtool: "inline-source-map",
+  devServer: {
+    contentBase: path.resolve(__dirname, "public/assets"),
+    stats: "errors-only",
+    open: true,
+    port: 8080,
+    compress: true,
+    historyApiFallback: true
+    // proxy: {
+    //   "/cognito_admin": {
+    //     target: {
+    //       host: "localhost",
+    //       protocol: "http:",
+    //       port: 3000
+    //     }
+    //   }
+    // }
+  }
 };

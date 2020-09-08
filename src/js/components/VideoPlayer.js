@@ -28,6 +28,13 @@ const YoutubePlayer = ({ currentVideo, host }) => {
       className="player"
       opts={{
         playerVars: {
+          origin: "localhost:8080",
+          controls: 1,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          cc_load_policy: 0,
+          rel: 0,
+          fs: 0
           // https://developers.google.com/youtube/player_parameters
         }
       }}

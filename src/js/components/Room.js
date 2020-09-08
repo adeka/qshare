@@ -94,16 +94,26 @@ const Room = props => {
   return (
     <Content className="fullHeightNoHeader">
       <Row className="room">
-        <Col span={5} className="fullHeight">
-          <Lobby />
-          <SearchResults roomId={roomId} />
-        </Col>
-        <Col span={14} className="fullHeight">
+        <Col span={18} className="fullHeight">
           <VideoPlayer />
-          <Chat />
+          <Row className="halfHeight">
+            <Col span={4} className="fullHeight">
+              <Lobby />
+            </Col>
+            <Col span={20} className="fullHeight">
+              <Chat />
+            </Col>
+          </Row>
         </Col>
-        <Col span={5} className="fullHeight">
-          <Playlist />
+        <Col span={6}>
+          <Row className="fullHeight">
+            <Col span={12} className="fullHeight">
+              <Playlist />
+            </Col>
+            <Col span={12} className="fullHeight">
+              <SearchResults roomId={roomId} />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Content>

@@ -6,8 +6,21 @@ body {
   height: 100%;
   background: #000000;
   overflow: hidden;
+  scroll-behavior: unset;
 }
 .app {
+  *::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+  *::-webkit-scrollbar-track {
+    background: #080d11; /* color of the tracking area */
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: rgb(39, 48, 63); /* color of the scroll thumb */
+    border-radius: 15px; /* roundness of the scroll thumb */
+    border: none;
+  }
+
   * {
     font-family: "Open Sans", sans-serif;
   }
@@ -33,6 +46,9 @@ body {
 }
 .fullHeight {
   height: 100%;
+}
+.halfHeight {
+  height: 50%;
 }
 .fullHeightNoHeader {
   height: calc(100% - 64px);
